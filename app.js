@@ -14,6 +14,17 @@ const app = express();
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/authtraining", { useNewUrlParser: true });
 
+//config passport
+app.use(require("express-session")({
+    secret: "Yabadabadu",
+    resave: false,
+    saveUninitialized: false
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(User.serializeUser()); //say to use plugin added
+passport.deserializeUser(User.deserializeUser()); //say to use plugin added
+
 //setting routes
 app.get("/", (req, res) => {
     res.render("home");
