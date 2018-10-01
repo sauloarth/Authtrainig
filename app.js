@@ -23,6 +23,7 @@ app.use(require("express-session")({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()))
 passport.serializeUser(User.serializeUser()); //say to use plugin added
 passport.deserializeUser(User.deserializeUser()); //say to use plugin added
 
@@ -54,7 +55,21 @@ app.post("/register", (req, res) => {
     })
 })
 
+app.get("/login", (req, res) => {
+    res.render("login");
+})
+                   //middleware
+app.post("/login", passport.authenticate("local", {
+    successRedirect: "/secret",
+    failureRedirect: "/login"
+}), (req, res) => {
+    
+})
 
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+})
 
 
 //config server listener
