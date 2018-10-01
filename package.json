@@ -1,0 +1,28 @@
+{
+  "name": "authtraining",
+  "version": "1.0.0",
+  "description": "Exemple of using Auth with local stratagy to implement login for apps.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sauloarth/Authtrainig.git"
+  },
+  "keywords": [
+    "auth",
+    "passport-express",
+    "local",
+    "strategy",
+    "mongoose",
+    "node",
+    "javascript"
+  ],
+  "author": "Saulo Reis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sauloarth/Authtrainig/issues"
+  },
+  "homepage": "https://github.com/sauloarth/Authtrainig#readme"
+}
