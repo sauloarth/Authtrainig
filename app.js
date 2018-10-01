@@ -13,6 +13,7 @@ const User = require("./models/user");
 const app = express();
 app.set("view engine", "ejs");
 mongoose.connect("mongodb://localhost/authtraining", { useNewUrlParser: true });
+app.use(bodyParser.urlencoded({extended:true}));
 
 //config passport
 app.use(require("express-session")({
@@ -25,13 +26,32 @@ app.use(passport.session());
 passport.serializeUser(User.serializeUser()); //say to use plugin added
 passport.deserializeUser(User.deserializeUser()); //say to use plugin added
 
-//setting routes
+//set routes
 app.get("/", (req, res) => {
     res.render("home");
 })
 
 app.get("/secret", (req, res) => {
     res.render("secret");
+})
+
+//auth routes
+app.get("/register", (req, res) => {
+    res.render("register");
+})
+
+app.post("/register", (req, res) => {
+    User.register(new User({username: req.body.username}), req.body.password, (err, newUser) => {
+        if(err){
+            console.log(err);
+            return res.render("register");
+        } else {
+            passport.authenticate("local")(req, res, () => {
+                res.redirect("/secret");
+            })
+                
+        }
+    })
 })
 
 
